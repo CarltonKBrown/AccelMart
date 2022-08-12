@@ -2,6 +2,8 @@
 using MinimalEndpoints;
 using Microsoft.OpenApi.Models;
 using AccelMart.WebAPI.Features.Todo;
+using AccelMart.ApplicationServices;
+using AccelMart.Infrastructure;
 
 namespace AccelMart.WebAPI;
 
@@ -9,6 +11,9 @@ public static class ProgramExtensions
 {
     public static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
     {
+        builder.Services.AddApplicationServices();
+        builder.Services.AddInfrastucture();
+
         builder.Services.AddMinimalEndpoints();
 
         builder.Services.AddHttpContextAccessor();
