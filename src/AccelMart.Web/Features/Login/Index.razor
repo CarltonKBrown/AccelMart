@@ -1,0 +1,32 @@
+﻿@page "/login"
+@inject IJSRuntime _js
+@using AccelMart.Web.Features.Login.Models
+
+<PageTitle>Login</PageTitle>
+
+<h3>Login</h3>
+
+<EditForm Model="@_loginViewModel" OnValidSubmit="@HandleSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+	<InputText class="form-control form-control-sm" id="email" @bind-Value="_loginViewModel.Email"/>
+	<InputText class="form-control form-control-sm" id="password" @bind-Value="_loginViewModel.Password"/>
+
+	<button type="submit" class="btn btn-outline-primary">Login</button>
+
+</EditForm>
+
+@code {
+	private LoginViewModel _loginViewModel = new() { Email = string.Empty, Password = string.Empty};
+
+	private async Task HandleSubmit()
+	{
+		await _js.InvokeVoidAsync("alert", $"Valid form data! {_loginViewModel.Email}; {_loginViewModel.Password}");
+	}
+
+	private async Task HandleInvalidSubmit()
+	{
+		await _js.InvokeVoidAsync("alert", $"Invalid form data! {_loginViewModel.Email}; {_loginViewModel.Password}");
+	}
+}
